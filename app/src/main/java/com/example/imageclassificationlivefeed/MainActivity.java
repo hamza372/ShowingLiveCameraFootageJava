@@ -1,7 +1,9 @@
 package com.example.imageclassificationlivefeed;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +11,7 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraManager;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
             ActivityCompat.requestPermissions(this, new String[] {
                     Manifest.permission.CAMERA }, 121);
         }
-        
+
         //TODO show live camera footage
         setFragment();
 
