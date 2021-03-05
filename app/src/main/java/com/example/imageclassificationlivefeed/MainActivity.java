@@ -33,15 +33,27 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO ask for camera permissions
+         //TODO ask for camera permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(this, new String[] {
-                    Manifest.permission.CAMERA }, 121);
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA}, 121);
+        } else {
+            //TODO show live camera footage
+            setFragment();
         }
 
+    }
+    
+     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //TODO show live camera footage
-        setFragment();
-
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            setFragment();
+        } else {
+            finish();
+        }
     }
 
     //TODO fragment which show llive footage from camera
