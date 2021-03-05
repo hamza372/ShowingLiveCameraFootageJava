@@ -3,6 +3,8 @@ package com.example.imageclassificationlivefeed;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import androidx.annotation.NonNull;
+import android.content.pm.PackageManager;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
