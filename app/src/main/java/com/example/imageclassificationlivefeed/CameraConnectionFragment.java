@@ -56,6 +56,8 @@ import java.util.concurrent.TimeUnit;
  *
  * <p>Instantiated by newInstance.</p>
  */
+@SuppressLint("ValidFragment")
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 @SuppressWarnings("FragmentNotInstantiable")
 public class CameraConnectionFragment extends Fragment {
 
@@ -337,6 +339,7 @@ public class CameraConnectionFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("MissingPermission")
     private void openCamera(final int width, final int height) {
         setUpCameraOutputs();
@@ -396,18 +399,23 @@ public class CameraConnectionFragment extends Fragment {
     }
 
     /** Stops the background thread and its {@link Handler}. */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void stopBackgroundThread() {
-        backgroundThread.quitSafely();
-        try {
-            backgroundThread.join();
-            backgroundThread = null;
-            backgroundHandler = null;
-        } catch (final InterruptedException e) {
-        //    LOGGER.e(e, "Exception!");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            backgroundThread.quitSafely();
+
+            try {
+                backgroundThread.join();
+                backgroundThread = null;
+                backgroundHandler = null;
+            } catch (final InterruptedException e) {
+                //    LOGGER.e(e, "Exception!");
+            }
         }
     }
 
     /** Creates a new {@link CameraCaptureSession} for camera preview. */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void createCameraPreviewSession() {
         try {
             final SurfaceTexture texture = textureView.getSurfaceTexture();
